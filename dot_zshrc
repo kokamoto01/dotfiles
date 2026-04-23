@@ -1,0 +1,60 @@
+# Language
+export LANG=en_US.UTF-8
+
+# autosuggestions
+source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# fast syntax highlighting
+source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Make word deletion stop at path separators, etc.
+WORDCHARS=''
+
+# History search with arrow key
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^[[A" up-line-or-beginning-search
+bindkey "^[[B" down-line-or-beginning-search
+
+# Delete texts with cmd+delete
+bindkey '^[w' kill-whole-line
+
+# MySQL
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# Nodebrew
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
+
+# Ruby / gem
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$HOME/.gem/ruby/3.4.0/bin:$PATH"
+
+export GEM_HOME="/opt/homebrew/lib/ruby/gems/3.4.0"
+export GEM_PATH="/opt/homebrew/lib/ruby/gems/3.4.0:/Users/kentaro_okamoto/.gem/ruby/3.4.0"
+
+export GEM_HOME="/Users/kentaro_okamoto/.gem/ruby/3.4.0"
+export GEM_PATH="/Users/kentaro_okamoto/.gem/ruby/3.4.0:/opt/homebrew/lib/ruby/gems/3.4.0"
+
+# rbenv
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init - zsh)"
+
+# Starship
+eval "$(starship init zsh)"
+
+# bun completions
+[ -s "/Users/kentaro_okamoto/.bun/_bun" ] && source "/Users/kentaro_okamoto/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# tmux-neovim-ide
+export PATH="$HOME/.local/bin:$PATH"
+
+# zoxide
+if [[ $- == *i* ]]; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
+export PATH="/opt/homebrew/opt/python@3.14/libexec/bin:$PATH"
+
