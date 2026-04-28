@@ -42,6 +42,14 @@ eval "$(rbenv init - zsh)"
 # Starship
 eval "$(starship init zsh)"
 
+# Set window title to current directory name
+autoload -Uz add-zsh-hook
+_set_window_title() {
+  print -Pn "\e]0;%1~\a"
+}
+add-zsh-hook precmd _set_window_title
+add-zsh-hook preexec _set_window_title
+
 # bun completions
 [ -s "/Users/kentaro_okamoto/.bun/_bun" ] && source "/Users/kentaro_okamoto/.bun/_bun"
 
@@ -49,12 +57,8 @@ eval "$(starship init zsh)"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# tmux-neovim-ide
-export PATH="$HOME/.local/bin:$PATH"
-
 # zoxide
 if [[ $- == *i* ]]; then
   eval "$(zoxide init zsh --cmd cd)"
 fi
 export PATH="/opt/homebrew/opt/python@3.14/libexec/bin:$PATH"
-
