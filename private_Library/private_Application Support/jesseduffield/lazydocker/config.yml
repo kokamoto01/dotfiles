@@ -1,0 +1,10 @@
+customCommands:
+  services:
+    - name: run
+      attach: true
+      command: '{{ .DockerCompose }} run --rm {{ .Service.Name }} {{ .Form.Command }}'
+      serviceNames: []
+      prompts:
+        - type: input
+          title: 'Command:'
+          key: Command
