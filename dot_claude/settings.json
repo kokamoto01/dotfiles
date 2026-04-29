@@ -1,0 +1,76 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push -f *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)",
+      "Bash(git checkout .)",
+      "Bash(git clean -f *)",
+      "Bash(git add .)",
+      "Bash(git add -A)",
+      "Bash(rm -rf *)",
+      "Bash(rm -r *)",
+      "Bash(chmod 777 *)",
+      "Bash(chmod -R *)",
+      "Bash(chown -R *)",
+      "Bash(killall *)",
+      "Bash(pkill *)",
+      "Bash(kill -9 *)",
+      "Bash(sudo *)",
+      "Bash(su *)",
+      "Bash(curl *|*sh)",
+      "Bash(wget *|*sh)",
+      "Bash(open *)",
+      "Bash(osascript *)",
+      "Bash(defaults write *)",
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(rsync *)",
+      "Bash(npm publish *)",
+      "Bash(yarn publish *)",
+      "Bash(pnpm publish *)",
+      "Bash(*deploy*)",
+      "Bash(terraform apply *)",
+      "Bash(terraform destroy *)",
+      "Bash(kubectl apply *)",
+      "Bash(kubectl delete *)",
+      "Bash(helm install *)",
+      "Bash(helm upgrade *)",
+      "Bash(docker push *)",
+      "Bash(aws * --no-cli-pager)",
+      "Bash(gcloud * --quiet)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "mcp__claude_ai_Slack__slack_send_message",
+      "mcp__claude_ai_Slack__slack_schedule_message"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus",
+  "statusLine": {
+    "type": "command",
+    "command": "bun x ccusage statusline --no-offline --cost-source both --visual-burn-rate emoji --context-low-threshold 60 --context-medium-threshold 90",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "lua-lsp@claude-plugins-official": true
+  },
+  
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "filesystem": {
+      "denyRead": [
+        "~/.ssh",
+        "~/.gnupg",
+        "~/.aws",
+        "~/.config/gcloud",
+        "~/.bash_history",
+        "~/.zsh_history"
+      ]
+    }
+  },
+  "effortLevel": "high",
+  "skipAutoPermissionPrompt": true
+}
