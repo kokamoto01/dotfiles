@@ -28,6 +28,8 @@ vim.api.nvim_create_autocmd("VimEnter", {
     vim.schedule(function()
       Snacks.explorer.open()
       vim.cmd("ClaudeCode --continue")
+      vim.cmd("wincmd p")
+      vim.cmd("stopinsert")
     end)
   end,
 })
