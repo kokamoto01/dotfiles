@@ -39,6 +39,7 @@ return {
           for i = 1, row - line_count do lines[i] = "" end
           vim.api.nvim_buf_set_lines(self.buf, line_count, line_count, false, lines)
           vim.bo[self.buf].modifiable = false
+          vim.bo[self.buf].modified = false
         end
         self.opts.pos = { row, col }
       end
