@@ -46,14 +46,24 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "opus",
   "statusLine": {
     "type": "command",
     "command": "bun x ccusage statusline --no-offline --cost-source both --visual-burn-rate emoji --context-low-threshold 60 --context-medium-threshold 90",
     "padding": 0
   },
   "enabledPlugins": {
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "datadog@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "micronity": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/metaps/sre-ops-report-skill.git",
+        "ref": "feat/plugin-structure"
+      },
+      "autoUpdate": true
+    }
   },
   "sandbox": {
     "enabled": true,
@@ -70,5 +80,29 @@
     }
   },
   "effortLevel": "high",
-  "skipAutoPermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "skipAutoPermissionPrompt": true,
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "in=$(cat); f=$(printf '%s' \"$in\" | /opt/homebrew/bin/jq -r '.tool_input.file_path // empty'); sid=$(printf '%s' \"$in\" | /opt/homebrew/bin/jq -r '.session_id // \"default\"'); [ -n \"$f\" ] && echo \"$f\" >> \"${TMPDIR:-/tmp}/claude_edits_${sid}.txt\"; exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sid=$(/opt/homebrew/bin/jq -r '.session_id // \"default\"'); list=\"${TMPDIR:-/tmp}/claude_edits_${sid}.txt\"; [ -f \"$list\" ] || exit 0; proc=\"${list}.proc.$$\"; mv \"$list\" \"$proc\" 2>/dev/null || exit 0; if [ -n \"$NVIM\" ] && nvim --server \"$NVIM\" --remote-expr \"v:lua.ClaudeOpenEdited('$proc')\" >/dev/null 2>&1; then :; else rm -f \"$proc\"; fi; exit 0"
+          }
+        ]
+      }
+    ]
+  }
 }

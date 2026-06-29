@@ -3,3 +3,4 @@
 -- Add any additional options here
 
 vim.o.relativenumber = false
+vim.o.title = false

@@ -68,6 +68,8 @@ return {
       sources = {
         explorer = {
           hidden = true,
+          -- .env 系は gitignore 対象でも常に表示する (include は hidden/ignored より優先)
+          include = { "**/.env*" },
           toggles = {
             hidden = false,
           },
